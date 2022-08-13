@@ -16,6 +16,8 @@ import { Mentions } from './entities/Mentions';
 import { Users } from './entities/Users';
 import { WorkspaceMembers } from './entities/WorkspaceMembers';
 import { Workspaces } from './entities/Workspaces';
+import { AuthModule } from './auth/auth.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { Workspaces } from './entities/Workspaces';
     WorkspacesModule,
     ChannelsModule,
     DmsModule,
+    AuthModule,
+    TypeOrmModule.forFeature([Users]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -45,9 +49,10 @@ import { Workspaces } from './entities/Workspaces';
       keepConnectionAlive: true,
       migrations: [__dirname + '/migrations/*.ts'],
       charset: 'utf8mb4',
-      synchronize: true,
+      synchronize: false,
       logging: true,
     }),
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
