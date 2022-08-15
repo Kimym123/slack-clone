@@ -49,11 +49,11 @@ const config: Configuration = {
           ],
           env: {
             development: {
-              plugins: [require.resolve('react-refresh/babel')],
+              plugins: [['@emotion', { sourceMaps: true }], require.resolve('react-refresh/babel')],
             },
-            //   production: {
-            //     plugins: ['emotion'],
-            //   },
+            production: {
+              plugins: ['emotion'],
+            },
           },
         },
         exclude: path.join(__dirname, 'node_modules'),
