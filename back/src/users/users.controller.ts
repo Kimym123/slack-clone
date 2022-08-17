@@ -87,7 +87,6 @@ export class UsersController {
   @UseGuards(LoggedInGuard)
   @Post('logout')
   async logout(@Req() req, @Res() res) {
-    req.logOut();
     res.clearCookie('connect.sid', { httpOnly: true });
     res.send('ok');
   }

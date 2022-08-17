@@ -2,12 +2,13 @@ import React, { useCallback, useState } from 'react';
 import useInput from '@hooks/useInput';
 import axios from 'axios';
 import { Form, Error, Label, Input, LinkContainer, Button, Header } from '@pages/SignUp/styles';
-import { Link } from 'react-router-dom';
-import useSWR, { mutate } from 'swr';
+import { Link, Navigate } from 'react-router-dom';
+import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 
 const LogIn = () => {
   const { data, error, mutate } = useSWR('http://localhost:3000/api/users', fetcher);
+
   const [logInError, setLogInError] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
@@ -26,6 +27,14 @@ const LogIn = () => {
     },
     [email, password, mutate],
   );
+
+  if (data === undefined) {
+    return <div>로딩중...</div>;
+  }
+
+  if (data) {
+    return <Navigate replace to="/workspace/channel" />;
+  }
 
   return (
     <div id="container">
