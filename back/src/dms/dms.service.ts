@@ -48,7 +48,7 @@ export class DmsService {
       .createQueryBuilder('dms')
       .innerJoinAndSelect('dms.Sender', 'sender')
       .innerJoinAndSelect('dms.Receiver', 'receiver')
-      .innerJoin('dms.Workspaces', 'workspace')
+      .innerJoin('dms.Workspace', 'workspace')
       .where('workspace.url = :url', { url })
       .andWhere(
         '((dms.SenderId = :myId AND dms.ReceiverId = :id) OR (dms.ReceiverId = :myId AND dms.SenderId = :id))',
