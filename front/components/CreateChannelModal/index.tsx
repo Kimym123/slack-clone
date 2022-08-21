@@ -17,7 +17,7 @@ interface Props {
 
 const CreateChannelModal: VFC<Props> = ({ show, onCloseModal, setShowCreateChannelModal }) => {
   const [newChannel, onChangeNewChannel, setNewChannel] = useInput('');
-  const { workspace, channel } = useParams<{ workspace: string; channel: string }>();
+  const { workspace } = useParams<{ workspace: string }>();
 
   const { data: userData } = useSWR<IUser | false>('/api/users', fetcher);
   const { mutate: revalidateChannel } = useSWR<IChannel[]>(
@@ -46,7 +46,7 @@ const CreateChannelModal: VFC<Props> = ({ show, onCloseModal, setShowCreateChann
           toast.error(error.response?.data, { position: 'bottom-center' });
         });
     },
-    [newChannel, revalidateChannel],
+    [newChannel, revalidateChannel, workspace, setShowCreateChannelModal, setNewChannel],
   );
 
   return (
