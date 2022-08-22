@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IUser, IUserWithOnline } from '@typings/db';
 import { CollapseButton } from '@components/DMList/styles';
 import { NavLink } from 'react-router-dom';
@@ -26,7 +26,7 @@ const DMList = () => {
   }, []);
 
   useEffect(() => {
-    console.log('DMList: workspace 변경됨', workspace);
+    console.log(`DMList: workspace가 ${workspace}로 변경되었습니다.`);
     setOnlineList([]);
   }, [workspace]);
 

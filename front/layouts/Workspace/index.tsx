@@ -54,20 +54,7 @@ const Workspace = () => {
   const { data: userData, mutate } = useSWR<IUser | false>('/api/users', fetcher);
   const { data: channelData } = useSWR<IChannel[]>(userData ? `/api/workspaces/${workspace}/channels` : null, fetcher);
 
-  const [socket, disconnect] = useSocket(workspace);
-
-  useEffect(() => {
-    if (channelData && userData && socket) {
-      console.log(socket);
-      socket?.emit('login', { id: userData?.id, channels: channelData.map((v: any) => v.id) });
-    }
-  }, [socket, channelData, userData]);
-
-  useEffect(() => {
-    return () => {
-      disconnect();
-    };
-  }, [workspace, disconnect]);
+  const [socket, disconnectSocket] = useSocket(workspace);
 
   const onLogout = useCallback(() => {
     axios
@@ -140,6 +127,19 @@ const Workspace = () => {
   const onClickInviteWorkspace = useCallback(() => {
     setShowInviteWorkspaceModal(true);
   }, []);
+
+  useEffect(() => {
+    if (channelData && userData) {
+      socket?.emit('login', { id: userData?.id, channels: channelData.map((v: any) => v.id) });
+    }
+  }, [socket, channelData, userData]);
+
+  useEffect(() => {
+    return () => {
+      console.log(`${workspace}와 소켓 연결을 끊었습니다.`);
+      disconnectSocket();
+    };
+  }, [disconnectSocket, workspace]);
 
   if (!userData) {
     return <Navigate replace to="/login" />;
@@ -225,6 +225,7 @@ const Workspace = () => {
         onCloseModal={onCloseModal}
         setShowInviteWorkspaceModal={setShowInviteWorkspaceModal}
       />
+
       {/*<InviteChannelModal*/}
       {/*  show={showInviteChannelModal}*/}
       {/*  onCloseModal={onCloseModal}*/}

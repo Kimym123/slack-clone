@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 
 const LogIn = () => {
-  const { data, error, mutate } = useSWR('http://localhost:3000/api/users', fetcher);
+  const { data: userData, error, mutate } = useSWR('/api/users', fetcher);
 
   const [logInError, setLogInError] = useState(false);
   const [email, onChangeEmail] = useInput('');
@@ -28,11 +28,11 @@ const LogIn = () => {
     [email, password, mutate],
   );
 
-  if (data === undefined) {
+  if (userData === undefined) {
     return <div>로딩중...</div>;
   }
 
-  if (data) {
+  if (userData) {
     return <Navigate replace to="/workspace/sleact/channel/일반" />;
   }
 

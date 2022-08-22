@@ -15,10 +15,10 @@ const DM = () => {
 
   const { data: myData } = useSWR<IUser>(`/api/users`, fetcher);
   const { data: userData } = useSWR(`/api/workspaces/${workspace}/members/${id}`, fetcher);
-  // const { data: chatData, mutate: mutateChat } = useSWR<IDM[]>(
-  //   `/api/workspaces/${workspace}/dms/${id}/chats?parPage=20&page=1`,
-  //   fetcher,
-  // );
+  const { data: chatData, mutate: mutateChat } = useSWR<IDM[]>(
+    `/api/workspaces/${workspace}/dms/${id}/chats?perPage=20&page=1`,
+    fetcher,
+  );
 
   const [chat, onChangeChat, setChat] = useInput('');
 
@@ -26,8 +26,7 @@ const DM = () => {
     (e: any) => {
       e.preventDefault();
       if (chat?.trim()) {
-        // 만약 채팅이 존재하면
-        axios // 채팅 등록
+        axios
           .post(`/api/workspaces/${workspace}/dms/${id}/chats`, { content: chat })
           .then(() => {
             // mutateChat();
@@ -36,7 +35,7 @@ const DM = () => {
           .catch(console.error);
       }
     },
-    [chat],
+    [chat, workspace, id],
   );
 
   if (!userData || !myData) {
@@ -49,7 +48,7 @@ const DM = () => {
         <img src={gravatar.url(userData.email, { s: '24px', d: 'retro' })} alt={userData.nickname} />
         <span>{userData.nickname}</span>
       </Header>
-      <ChatList />
+      <ChatList chatData={chatData} />
       <ChatBox chat={chat} onChangeChat={onChangeChat} onSubmitForm={onSubmitForm} />
     </Container>
   );
