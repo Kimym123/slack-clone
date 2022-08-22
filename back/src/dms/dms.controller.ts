@@ -41,7 +41,7 @@ export class DmsController {
   }
 
   @ApiOperation({ summary: '워크스페이스에서 특정 DM 채팅을 모두 가져오기' })
-  @Get(':id/chats')
+  @Get(':url/dms/:id/chats')
   async getWorkspaceDMChats(
     @Param('url') url: string,
     @Param('id', ParseIntPipe) id: number,
@@ -53,7 +53,7 @@ export class DmsController {
   }
 
   @ApiOperation({ summary: '워크스페이스에서 특정 DM 채팅을 생성하기' })
-  @Post(':id/chats')
+  @Post(':url/dms/:id/chats')
   async createWorkspaceDMChats(
     @Param('url') url: string,
     @Param('id', ParseIntPipe) id: number,
