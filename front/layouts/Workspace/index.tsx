@@ -44,7 +44,6 @@ const Workspace = () => {
   const [showWorkspaceModal, setShowWorkspaceModal] = useState(false);
   const [showCreateChannelModal, setShowCreateChannelModal] = useState(false);
   const [showInviteWorkspaceModal, setShowInviteWorkspaceModal] = useState(false);
-  const [showInviteChannelModal, setShowInviteChannelModal] = useState(false);
 
   const [newWorkspace, onChangeNewWorkspace, setNewWorkspace] = useInput('');
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput('');
@@ -83,7 +82,6 @@ const Workspace = () => {
     setShowCreateWorkspaceModal(false);
     setShowCreateChannelModal(false);
     setShowInviteWorkspaceModal(false);
-    setShowInviteChannelModal(false);
   }, []);
 
   const onCreateWorkspace = useCallback(
@@ -225,12 +223,6 @@ const Workspace = () => {
         onCloseModal={onCloseModal}
         setShowInviteWorkspaceModal={setShowInviteWorkspaceModal}
       />
-
-      {/*<InviteChannelModal*/}
-      {/*  show={showInviteChannelModal}*/}
-      {/*  onCloseModal={onCloseModal}*/}
-      {/*  setShowInviteChannelModal={setShowInviteChannelModal}*/}
-      {/*/>*/}
     </div>
   );
 };

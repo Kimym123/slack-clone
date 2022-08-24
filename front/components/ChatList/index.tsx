@@ -5,7 +5,7 @@ import Chat from '@components/Chat';
 import Scrollbars, { positionValues } from 'react-custom-scrollbars-2';
 
 interface Props {
-  chatSections: { [ket: string]: IDM[] };
+  chatSections: { [ket: string]: (IDM | IChat)[] };
   scrollbarRef: RefObject<Scrollbars>;
   setSize: (f: (size: number) => number) => Promise<(IDM | IChat)[][] | undefined>;
   isEmpty: boolean;

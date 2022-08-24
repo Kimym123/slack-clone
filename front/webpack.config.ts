@@ -1,10 +1,11 @@
-import * as path from 'path';
+import path from 'path';
 import webpack from 'webpack';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 import { WebpackConfiguration } from 'webpack-cli';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -15,7 +16,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const config: Configuration = {
   name: 'sleact',
   mode: isDevelopment ? 'development' : 'production',
-  devtool: isDevelopment ? 'hidden-source-map' : 'inline-source-map',
+  devtool: !isDevelopment ? 'hidden-source-map' : 'inline-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
@@ -49,10 +50,10 @@ const config: Configuration = {
           ],
           env: {
             development: {
-              plugins: [['@emotion', { sourceMaps: true }], require.resolve('react-refresh/babel')],
+              plugins: [['@emotion/babel-plugin', { sourceMap: true }], require.resolve('react-refresh/babel')],
             },
             production: {
-              plugins: ['emotion'],
+              plugins: ['@emotion/babel-plugin'],
             },
           },
         },
@@ -92,12 +93,12 @@ const config: Configuration = {
 if (isDevelopment && config.plugins) {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
   config.plugins.push(new ReactRefreshWebpackPlugin());
-  // config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'server', openAnalyzer: false }));
+  config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'server', openAnalyzer: true }));
 }
 
 if (isDevelopment && config.plugins) {
-  // config.plugins.push(new webpack.LoaderOptionsPlugin({ minimize: true }));
-  // config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
+  config.plugins.push(new webpack.LoaderOptionsPlugin({ minimize: true }));
+  config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
 }
 
 export default config;
