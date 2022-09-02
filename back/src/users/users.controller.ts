@@ -5,8 +5,7 @@ import {
   Get,
   NotFoundException,
   Post,
-  Req,
-  Res,
+  Response,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -35,7 +34,7 @@ export class UsersController {
   @ApiCookieAuth('connect.sid')
   @ApiOperation({ summary: '내 정보 가져오기' })
   @ApiResponse({
-    type: UserDto,
+    type: JoinRequestDto,
   })
   @Get()
   async getMyProfile(@User() user: Users) {
@@ -86,7 +85,7 @@ export class UsersController {
   @ApiOperation({ summary: '로그아웃' })
   @UseGuards(LoggedInGuard)
   @Post('logout')
-  async logout(@Req() req, @Res() res) {
+  async logout(@Response() res) {
     res.clearCookie('connect.sid', { httpOnly: true });
     res.send('ok');
   }

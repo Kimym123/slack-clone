@@ -12,6 +12,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(email: string, password: string, done: CallableFunction) {
     const user = await this.authService.validateUser(email, password);
     if (!user) {
+      // return done(null, false, { message: '정보를 올바르게 입력해주세요.' });
       throw new UnauthorizedException();
     }
     return done(null, user);

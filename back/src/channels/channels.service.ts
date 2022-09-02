@@ -7,7 +7,6 @@ import { Workspaces } from '../entities/Workspaces';
 import { ChannelChats } from '../entities/ChannelChats';
 import { Users } from '../entities/Users';
 import { EventsGateway } from '../events/events.gateway';
-import { DMs } from '../entities/DMs';
 
 @Injectable()
 export class ChannelsService {
@@ -115,7 +114,7 @@ export class ChannelsService {
       })
       .getOne();
     if (!user) {
-      throw new NotFoundException('사용자가 존재하지 않습니다.');
+      throw new NotFoundException('왜 존재안하는데');
     }
 
     const channelMember = new ChannelMembers();

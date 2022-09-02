@@ -27,8 +27,8 @@ export class Users {
   id: number;
 
   @ApiProperty({
-    example: `aaa123@google.com`,
-    description: '이메일',
+    example: 'aaa123@kakao.com',
+    description: 'email',
     required: true,
   })
   @IsEmail()

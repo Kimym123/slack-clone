@@ -87,8 +87,12 @@ const Workspace = () => {
   const onCreateWorkspace = useCallback(
     (e: any) => {
       e.preventDefault();
-      if (!newWorkspace || !newWorkspace.trim()) return;
-      if (!newUrl || !newUrl.trim()) return;
+      if (!newWorkspace || !newWorkspace.trim()) {
+        return;
+      }
+      if (!newUrl || !newUrl.trim()) {
+        return;
+      }
       axios
         .post(
           '/api/workspaces',
@@ -168,7 +172,7 @@ const Workspace = () => {
         <Workspaces>
           {userData?.Workspaces.map((ws) => {
             return (
-              <Link key={ws.id} to={`/workspace/sleact/channel/일반`}>
+              <Link key={ws.id} to={`/workspace/${ws.url}/channel/일반`}>
                 <WorkspaceButton>{ws.name.slice(0, 1).toUpperCase()}</WorkspaceButton>
               </Link>
             );
@@ -176,7 +180,9 @@ const Workspace = () => {
           <AddButton onClick={onClickCreateWorkspace}>+</AddButton>;
         </Workspaces>
         <Channels>
-          <WorkspaceName onClick={toggleWorkspaceModal}>WorkspaceName</WorkspaceName>
+          <WorkspaceName onClick={toggleWorkspaceModal}>
+            {userData?.Workspaces.find((v) => v.url === workspace)?.name}
+          </WorkspaceName>
           <MenuScroll>
             <Menu show={showWorkspaceModal} onCloseModal={toggleWorkspaceModal} style={{ top: 95, left: 80 }}>
               <WorkspaceModal>

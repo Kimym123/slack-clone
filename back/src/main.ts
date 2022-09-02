@@ -32,9 +32,6 @@ async function bootstrap() {
       credentials: true,
     });
   }
-  app.useStaticAssets(path.join(__dirname, '..', 'uploads'), {
-    prefix: '/uploads',
-  });
 
   const config = new DocumentBuilder()
     .setTitle('Sleact')
@@ -44,6 +41,10 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  app.useStaticAssets(path.join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads',
+  });
 
   app.use(cookieParser());
   app.use(
