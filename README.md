@@ -1,4 +1,5 @@
 # Slack Clone
+
 React, NEstJS를 사용하여 개발한 Slack입니다.
 
 # 프로젝트를 만들게 된 동기
@@ -10,35 +11,27 @@ React, NEstJS를 사용하여 개발한 Slack입니다.
 실제로 서비스를 하고 있으며, 그 서비스가 잘되고 있기 때문에 선택했습니다. 서비스를 하고 있다는 것은 현재 시장에서 충분히 경쟁력이 있다는 것이고, 그 서비스가 잘되고 있다는 것은 사용자의 니즈를 확실하게 충족시키고 있기 때문이라고 생각해서 클론코딩을 하면 많은 것을 배울 수 있을 것이라 판단했습니다. 또한 디지털 업무환경을 선도하는 서비스이기 때문입니다. 개발자와 디지털 업무환경과는 뗄 수 없는 사이라고 판단하여 슬랙을 클론코딩하면 의미가 있을 것 같았습니다.
 
 # Slack Clone에 대한 설계
+
 [API path와 ERD](https://github.com/Kimym123/sleact/tree/main/back)
+
+# Slack Clone 시연 영상
+
+[영상](https://github.com/Kimym123/sleact/tree/main/front)
+
 
 # 사용한 기술
 
-### 프론트엔드
-- React
-- Emotion
-- Gravatar
-- Socket.io
-- SWR
-
-### 백엔드
-- Nest.js
-- swagger
-- typeorm
-- socket.io
+|    프론트엔드    |     백엔드     |
+|:-----------:|:-----------:|
+|    React    |   Nest.js   |
+|   Emotion   |   Swagger   |
+|  Gravatar   |   typeORM   |
+|  Socket.io  |  Socket.io  |
+|     SWR     |             |
 
 # 기능
+
 - 회원가입 & 로그인 & 로그아웃
 - 계층적 구조(Workspace/Channels)
 - 각 계층 별 회원 초대
 - 실시간 접속 확인 & 채팅
-
-
-
-
-
-
-
-
-
-
